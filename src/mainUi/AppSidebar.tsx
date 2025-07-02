@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   Type,
   Mail,
@@ -17,11 +16,9 @@ import {
   SidebarGroupContent,
   SidebarGroupLabel,
   SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
 } from "../components/ui/sidebar";
 
-import { FIELD_TYPES, type FieldType, type FieldSidebarProps } from "../types";
+import { FIELD_TYPES, type FieldType } from "../types";
 import { Card, CardContent } from "@/components/ui/card";
 
 interface FieldTypeConfig {
@@ -87,7 +84,7 @@ export default function AppSidebar() {
           <SidebarGroupLabel>Application</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu className="pt-10">
-              <div className="flex-1 overflow-y-auto px-4 py-3 space-y-2">
+              <div className="flex-1 overflow-y-auto p-4 py-3 space-y-2">
                 {Object.entries(fieldTypeConfig).map(([type, config]) => {
                   const IconComponent = config.icon;
 
