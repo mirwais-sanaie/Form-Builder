@@ -4,10 +4,10 @@ import Footer from "./Footer";
 
 function AppLayout() {
   return (
-    <div>
+    <div className="">
       <Header />
 
-      <div className="h-screen">
+      <div className="h-screen mt-20 container mx-auto">
         <Outlet />
       </div>
 
