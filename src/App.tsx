@@ -1,11 +1,16 @@
-import { Button } from "./components/ui/button";
+import { Route, Routes } from "react-router-dom";
+import AppLayout from "./ui/AppLayout";
+import Home from "./ui/Home";
+import Form from "./pages/Form";
 
 function App() {
   return (
-    <div>
-      <h1>Hello app</h1>
-      <Button>Hello Shadcn ui</Button>
-    </div>
+    <Routes>
+      <Route element={<AppLayout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/form" element={<Form />} />
+      </Route>
+    </Routes>
   );
 }
 
