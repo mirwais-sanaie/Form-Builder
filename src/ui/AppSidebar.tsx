@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useDrag } from "react-dnd";
+import { ItemTypes } from "../types/dragAndDropTypes";
 import {
   Type,
   Mail,
@@ -89,26 +92,11 @@ export default function AppSidebar() {
                   const IconComponent = config.icon;
 
                   return (
-                    <Card
+                    <DraggableFieldType
                       key={type}
-                      className="cursor-pointer hover:shadow-md transition-shadow duration-200 border-2 hover:border-blue-300"
-                    >
-                      <CardContent className="p-3">
-                        <div className="flex items-center space-x-3">
-                          <div className="flex-shrink-0">
-                            <IconComponent className="w-5 h-5 text-blue-600" />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <p className="text-sm font-medium text-gray-900 truncate">
-                              {config.label}
-                            </p>
-                            <p className="text-xs text-gray-500 truncate">
-                              {config.description}
-                            </p>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
+                      type={type as FieldType}
+                      config={config}
+                    />
                   );
                 })}
               </div>
@@ -117,5 +105,48 @@ export default function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
     </Sidebar>
+  );
+}
+
+function DraggableFieldType({
+  type,
+  config,
+}: {
+  type: FieldType;
+  config: FieldTypeConfig;
+}) {
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: ItemTypes.FIELD,
+    item: { type },
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  }));
+
+  const IconComponent = config.icon;
+
+  return (
+    <div
+      ref={(node) => drag(node as HTMLDivElement)}
+      style={{ opacity: isDragging ? 0.5 : 1 }}
+    >
+      <Card className="cursor-pointer hover:shadow-md transition-shadow duration-200 border-2 hover:border-blue-300">
+        <CardContent className="p-3">
+          <div className="flex items-center space-x-3">
+            <div className="flex-shrink-0">
+              <IconComponent className="w-5 h-5 text-blue-600" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium text-gray-900 truncate">
+                {config.label}
+              </p>
+              <p className="text-xs text-gray-500 truncate">
+                {config.description}
+              </p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   );
 }
